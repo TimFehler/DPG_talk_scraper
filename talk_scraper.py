@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 QUERY_STRING = os.getenv('QUERY_STRING')
 
@@ -13,6 +13,7 @@ page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, 'html.parser')
 
-results = soup.find_all('td', class_='scip')
+table_fields = soup.find_all('td', class_='scip')
 
-print(results)
+for field in table_fields:
+    print(field.text)
