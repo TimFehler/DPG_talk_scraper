@@ -1,12 +1,7 @@
 import os
 import requests
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
-
-load_dotenv(override=True)
-
-QUERY_STRING = os.getenv('DPG_QUERY_STRING')
-BASE_URL = f'https://www.dpg-verhandlungen.de/year/2024/conference/karlsruhe/search?query={QUERY_STRING}&submit=Suchen'
+import yaml
 
 
 class DPG_talk:
@@ -50,21 +45,31 @@ class HTML_page:
 
 
 if __name__ == '__main__':
+    with open('config.yml') as file:
+        config = yaml.load(file, Loader=yaml.FullLoader)
+
+    query_strings = config['DPG24']['query_strings']
 
     talks = []
-    page_index = 1
+    for query_string in query_strings:
+        base_url = config['DPG24']['url'] + f"?query={query_string}&submit=Suchen"
 
-    while True:
-        URL = BASE_URL + f'&page={page_index}'
+        page_index = 1
 
-        page = HTML_page(URL)
-        if not page.has_talks():
-            break
+        while True:
+            url = base_url + f'&page={page_index}'
 
-        talks_page = page.get_talks()
-        talks.extend(talks_page)
 
-        page_index += 1
+            page = HTML_page(url)
+            if not page.has_talks():
+                break
+            
+            print('Getting talks from', url)
+
+            talks_page = page.get_talks()
+            talks.extend(talks_page)
+
+            page_index += 1
 
     for t in talks:
         print(t)
