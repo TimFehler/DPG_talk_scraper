@@ -1,5 +1,5 @@
 DPG24:
-  header: Karlsruhe 2024
+  title: Karlsruhe 2024
   url: https://www.dpg-verhandlungen.de/year/2024/conference/karlsruhe/search
   query_strings: [test]
-  output_file: output/dpg24.yml
+  output_file: talks/dpg24.yml

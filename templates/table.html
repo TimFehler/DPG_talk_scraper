@@ -1,0 +1,25 @@
+<style scoped>
+td {
+    padding-right: 5px;
+}
+</style>
+
+<h1>{{ title }}</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Session</th>
+            <th>Title</th>
+            <th>Speaker</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in talks %}
+        <tr>
+            <td>{{ t['session_id'] }}</td>
+            <td> <a href="{{ t['link'] }}">{{ t['title'] }}</a> </td>
+            <td>{{ t['presenting_author'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

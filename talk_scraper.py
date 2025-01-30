@@ -96,6 +96,6 @@ if __name__ == '__main__':
 
     output_file = config['DPG24']['output_file']
     with open(f'{output_file}', 'w') as file:
-        yaml.dump(talks_dict, file, allow_unicode=True, default_flow_style=False)
+        yaml.dump({'talks': talks_dict}, file, allow_unicode=True, default_flow_style=False)
 
     print(f'Wrote talks to {output_file}')

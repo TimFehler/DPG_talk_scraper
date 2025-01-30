@@ -1,3 +1,4 @@
 config.yml
-output/*.yml
+talks/*.yml
+html_table/*.html
 env/
