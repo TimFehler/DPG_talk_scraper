@@ -8,16 +8,23 @@ class DPG_talk:
         self.session_id = None
         self.title = None
         self.authors = []
+        self.presenting_author = None
         self.link = None
 
     def __str__(self):
-        return f'{self.title} by {self.authors}'
+        return f'({self.session_id}): {self.title} by {self.presenting_author}'
 
     def from_HTML(self, table_row: str):
         self.session_id = table_row.find_all('td', {"class": "scip"})[2].text
         self.title = table_row.find_all('a')[1].text
         self.link = table_row.find_all('a')[1]['href']
         self.authors = [x.text for x in table_row.find_all('span', {"style": "font-variant:small-caps"})]
+        
+        # Identify presenting author
+        bullet = table_row.find(string=lambda text: text and "\u2022" in text)
+
+        if bullet:
+            self.presenting_author = bullet.find_next('span').text
 
 
 class HTML_page:
