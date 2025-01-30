@@ -26,6 +26,15 @@ class DPG_talk:
         if bullet:
             self.presenting_author = bullet.find_next('span').text
 
+    def to_dict(self):
+        """Convert object to dictionary for YAML serialization."""
+        return {
+            'session_id': self.session_id,
+            'title': self.title,
+            'authors': self.authors,
+            'presenting_author': self.presenting_author,
+            'link': self.link
+        }
 
 class HTML_page:
     def __init__(self, URL):
@@ -81,5 +90,12 @@ if __name__ == '__main__':
 
     print(f'Found {len(talks)} unique talks')
 
-    for t in talks:
-        print(t)
+    talks_dict = [t.to_dict() for t in talks]
+
+    # Write to YAML file
+
+    output_file = config['DPG24']['output_file']
+    with open(f'{output_file}', 'w') as file:
+        yaml.dump(talks_dict, file, allow_unicode=True, default_flow_style=False)
+
+    print(f'Wrote talks to {output_file}')
