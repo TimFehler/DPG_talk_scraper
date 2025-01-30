@@ -9,7 +9,7 @@ class DPG_talk:
         self.session_id = None
         self.title = None
         self.authors = []
-        self.url = None
+        self.link = None
 
     def __str__(self):
         return f'{self.title} by {self.authors}'
@@ -52,13 +52,12 @@ if __name__ == '__main__':
 
     talks = []
     for query_string in query_strings:
+        # Construct query URL
         base_url = config['DPG24']['url'] + f"?query={query_string}&submit=Suchen"
-
         page_index = 1
 
         while True:
             url = base_url + f'&page={page_index}'
-
 
             page = HTML_page(url)
             if not page.has_talks():
@@ -70,6 +69,11 @@ if __name__ == '__main__':
             talks.extend(talks_page)
 
             page_index += 1
+
+    # Remove duplicates (check URL for that)
+    talks = list({t.link: t for t in talks}.values())
+
+    print(f'Found {len(talks)} unique talks')
 
     for t in talks:
         print(t)
