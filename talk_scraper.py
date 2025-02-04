@@ -58,6 +58,12 @@ class HTML_page:
 
         return talks
 
+# Sorting function for session IDs
+def sort_key(talk):
+    _, value = talk.session_id.split()  # Extract "23.5", "50.8", etc.
+    major, minor = map(float, value.split("."))  # Split "23.5" into 23 and 5
+    return (major, minor)
+
 
 if __name__ == '__main__':
     with open('config.yml') as file:
@@ -89,6 +95,9 @@ if __name__ == '__main__':
     talks = list({t.link: t for t in talks}.values())
 
     print(f'Found {len(talks)} unique talks')
+
+    # Sort by session ID
+    talks = sorted(talks, key=sort_key)
 
     talks_dict = [t.to_dict() for t in talks]
 
