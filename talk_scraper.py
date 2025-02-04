@@ -69,42 +69,46 @@ if __name__ == '__main__':
     with open('config.yml') as file:
         config = yaml.load(file, Loader=yaml.FullLoader)
 
-    query_strings = config['DPG24']['query_strings']
+    for conference_key in config:
+        try:
+            query_strings = config[conference_key]['query_strings']
+        except KeyError:
+            print(f'No query strings found for {conference_key}')
 
-    talks = []
-    for query_string in query_strings:
-        # Construct query URL
-        base_url = config['DPG24']['url'] + f"?query={query_string}&submit=Suchen"
-        page_index = 1
+        talks = []
+        for query_string in query_strings:
+            # Construct query URL
+            base_url = config[conference_key]['url'] + f"?query={query_string}&submit=Suchen"
+            page_index = 1
 
-        while True:
-            url = base_url + f'&page={page_index}'
+            while True:
+                url = base_url + f'&page={page_index}'
 
-            page = HTML_page(url)
-            if not page.has_talks():
-                break
-            
-            print('Getting talks from', url)
+                page = HTML_page(url)
+                if not page.has_talks():
+                    break
+                
+                print('Getting talks from', url)
 
-            talks_page = page.get_talks()
-            talks.extend(talks_page)
+                talks_page = page.get_talks()
+                talks.extend(talks_page)
 
-            page_index += 1
+                page_index += 1
 
-    # Remove duplicates (check URL for that)
-    talks = list({t.link: t for t in talks}.values())
+        # Remove duplicates (check URL for that)
+        talks = list({t.link: t for t in talks}.values())
 
-    print(f'Found {len(talks)} unique talks')
+        print(f'Found {len(talks)} unique talks')
 
-    # Sort by session ID
-    talks = sorted(talks, key=sort_key)
+        # Sort by session ID
+        talks = sorted(talks, key=sort_key)
 
-    talks_dict = [t.to_dict() for t in talks]
+        talks_dict = [t.to_dict() for t in talks]
 
-    # Write to YAML file
+        # Write to YAML file
 
-    output_file = config['DPG24']['output_file']
-    with open(f'{output_file}', 'w') as file:
-        yaml.dump({'talks': talks_dict}, file, allow_unicode=True, default_flow_style=False)
+        output_file = config[conference_key]['output_file_name']
+        with open(f'talks/{output_file}.yml', 'w') as file:
+            yaml.dump({'talks': talks_dict}, file, allow_unicode=True, default_flow_style=False)
 
-    print(f'Wrote talks to {output_file}')
+        print(f'Wrote talks to {output_file}')

@@ -2,4 +2,10 @@ DPG24:
   title: Karlsruhe 2024
   url: https://www.dpg-verhandlungen.de/year/2024/conference/karlsruhe/search
   query_strings: [test]
-  output_file: talks/dpg24.yml
+  output_file_name: dpg24
+
+DPG23:
+  title: Dresden 2023 (20th - 24th March)
+  url: https://www.dpg-verhandlungen.de/year/2023/conference/smuk/search
+  query_strings: [test]
+  output_file_name: dpg23

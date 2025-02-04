@@ -26,7 +26,7 @@ DPG24:
   title: Karlsruhe 2024
   url: https://www.dpg-verhandlungen.de/year/2024/conference/karlsruhe/search
   query_strings: [test]
-  output_file: talks/dpg24.yml
+  output_file_name: dpg24
 ```
 
 Duplicates are removed on the basis of the abstract link as a unique identifier of the contribution, so it is possible to use several names to search for contributions. It should be sufficient for instance to use a query combination like `[location+name1, location+name2, location+name3]` to find all contributions of your group, replacing `location` with the city of your institute.
