@@ -1,0 +1,19 @@
+<h2>{{ title }}</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Session</th>
+            <th>Title</th>
+            <th>Speaker</th>
+        </tr>
+    </thead>
+    <tbody class="no_p_margin">
+        {% for t in talks %}
+        <tr>
+            <td>{{ t['section'] }}&nbsp;{{ t['session_id'] }}</td>
+            <td> <a href="{{ t['link'] }}">{{ t['title'] }}</a> </td>
+            <td>{{ t['presenting_author'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

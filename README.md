@@ -23,7 +23,8 @@ The file `config.yml` is used to configure both the scraping and creation of HTM
 `config.yml`:
 ```yaml
 DPG24:
-  title: Karlsruhe 2024
+  title_en: Karlsruhe 2024 (4th - 8th March)
+  title_de: Karlsruhe 2024 (4. - 8. März)
   url: https://www.dpg-verhandlungen.de/year/2024/conference/karlsruhe/search
   query_strings: [test]
   output_file_name: dpg24

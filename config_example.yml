@@ -1,11 +1,13 @@
 DPG24:
-  title: Karlsruhe 2024
+  title_en: Karlsruhe 2024 (4th - 8th March)
+  title_de: Karlsruhe 2024 (4. - 8. März)
   url: https://www.dpg-verhandlungen.de/year/2024/conference/karlsruhe/search
   query_strings: [test]
   output_file_name: dpg24
 
 DPG23:
-  title: Dresden 2023 (20th - 24th March)
+  title_en: Dresden 2023 (20th - 24th March)
+  title_de: Dresden 2023 (20. - 24. März)
   url: https://www.dpg-verhandlungen.de/year/2023/conference/smuk/search
   query_strings: [test]
   output_file_name: dpg23
